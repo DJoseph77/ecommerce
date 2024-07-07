@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Ecommerce"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ProductsManager"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Categories"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Dashboard_user"
             android:exported="false" />
         <activity

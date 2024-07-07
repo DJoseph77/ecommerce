@@ -93,6 +93,7 @@
             android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/productsConstraint"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -119,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="Button 1"
+                    android:text="Products"
                     android:textColor="#6200ee"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"

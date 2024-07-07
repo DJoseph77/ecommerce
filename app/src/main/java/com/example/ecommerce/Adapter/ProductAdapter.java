@@ -13,36 +13,35 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
 import com.example.ecommerce.Activity.DetailActivity;
 import com.example.ecommerce.databinding.ViewholderPupListBinding;
-import com.example.ecommerce.domain.PopularDomain;
+import com.example.ecommerce.domain.Product;
 
 import java.util.ArrayList;
 
-public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHolder> {
-    ArrayList<PopularDomain> items;
+public  class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+    ArrayList<Product> items;
     Context context;
     ViewholderPupListBinding binding;
 
-    public PopularAdapter(ArrayList<PopularDomain> items) {
+    public ProductAdapter(ArrayList<Product> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
-    public PopularAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         binding=ViewholderPupListBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
         context=parent.getContext();
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position) {
         binding.titleTxt.setText(items.get(position).getTitle());
         binding.feeTxt.setText(items.get(position).getPrice()+"DT");
         binding.scoreTxt.setText(""+items.get(position).getScore());
         binding.reviewTxt.setText(""+items.get(position).getReview());
 
-        int drawableResourced=holder.itemView.getResources().getIdentifier(items.get(position).getPicUrl()
-                ,"drawable",holder.itemView.getContext().getPackageName());
+        String drawableResourced=items.get(position).getPicUrl();
         Glide.with(context)
                 .load(drawableResourced)
                 .transform(new GranularRoundedCorners(30,30,0,0))
@@ -60,7 +59,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         return items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(ViewholderPupListBinding binding) {
             super(binding.getRoot());
         }
