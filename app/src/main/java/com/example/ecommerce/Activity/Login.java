@@ -83,28 +83,31 @@ public class Login extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userId=mAuth.getUid();
-                            Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
-                            sharedPreferencesManager.setLogin(true,userId);
-                            DatabaseReference pathAdmin=databaseReference.child("admin").child("email");
-                            pathAdmin.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (email.equals(snapshot.getValue())) {
-                                        Intent intent12 = new Intent(Login.this, DashBoardActivity.class);
-                                        startActivity(intent12);
-                                        finish();
-                                    }else {
-                                        Intent intent = new Intent(Login.this, Dashboard_user.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            sharedPreferencesManager.setLogin(true,userId,email);
+                            DatabaseReference pathUser=databaseReference.child("users").child(userId);
 
-                                }
-                            });
+                            pathUser.child("admin").addValueEventListener(new ValueEventListener() {
+                               @Override
+                               public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                   if (Boolean.TRUE.equals(snapshot.getValue(Boolean.class))) {
+                                       Intent intent12 = new Intent(Login.this, DashBoardActivity.class);
+                                       sharedPreferencesManager.setAdmin(true);
+                                       startActivity(intent12);
+                                       finish();
+                                   }else {
+                                       Intent intent = new Intent(Login.this, Dashboard_user.class);
+                                       sharedPreferencesManager.setAdmin(false);
+                                       startActivity(intent);
+                                       finish();
+                                   }
+                               }
+
+                               @Override
+                               public void onCancelled(@NonNull DatabaseError error) {
+
+                               }
+                           });
 
                         } else {
                             // If sign in fails, display a message to the user.

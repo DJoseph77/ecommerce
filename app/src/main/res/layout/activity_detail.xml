@@ -192,6 +192,51 @@
                 android:textSize="16sp"
                 android:background="@drawable/btn_background"
                 android:textColor="@color/white"/>
+            <LinearLayout
+                android:id="@+id/rateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <com.example.ecommerce.Helper.RateImageView
+                    android:id="@+id/rate1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/star"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"/>
+                <com.example.ecommerce.Helper.RateImageView
+                    android:id="@+id/rate2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/star"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+                <com.example.ecommerce.Helper.RateImageView
+                    android:id="@+id/rate3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/star"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+                <com.example.ecommerce.Helper.RateImageView
+                    android:id="@+id/rate4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/star"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+                <com.example.ecommerce.Helper.RateImageView
+                    android:id="@+id/rate5"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/star"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"/>
+
+            </LinearLayout>
+                
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

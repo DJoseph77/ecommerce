@@ -33,6 +33,7 @@ public class signup extends AppCompatActivity {
     private DatabaseReference mDatabase;
     String country, name, password, phoneNumber, address, email;
     ArrayList<String> countries;
+    ArrayList<String> favorisProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +79,10 @@ public class signup extends AppCompatActivity {
                 phoneNumber = binding.editTextPhoneNumber.getText().toString();
                 address = binding.editTextAdress.getText().toString();
                 email = binding.editTextEmail.getText().toString();
+                favorisProducts=new ArrayList<>();
 
                 if (validateFields(name, email, password, phoneNumber, address, country)) {
-                    createAccount(name, email, password, phoneNumber, country, address);
+                    createAccount(name, email, password, phoneNumber, country, address,favorisProducts);
                 }else {
                     binding.textError.setVisibility(View.VISIBLE);
                     binding.textError.setText("Please fill all fields!");
@@ -127,7 +129,7 @@ public class signup extends AppCompatActivity {
         return true;
     }
 
-    private void createAccount(String name, String email, String password, String phoneNumber, String country, String address) {
+    private void createAccount(String name, String email, String password, String phoneNumber, String country, String address,ArrayList<String> favorisProducts) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -138,7 +140,7 @@ public class signup extends AppCompatActivity {
                         // Get user ID
                         String userId = user.getUid();
                         // Write user data to the database
-                        writeNewUser(userId, name, phoneNumber, address, country);
+                        writeNewUser(userId, name, phoneNumber, address, country,email,favorisProducts,false);
                         Intent intent3 = new Intent(signup.this, Login.class);
                         startActivity(intent3);
                     }
@@ -150,9 +152,9 @@ public class signup extends AppCompatActivity {
         });
     }
 
-    private void writeNewUser(String userId, String name, String phoneNumber, String address, String country) {
+    private void writeNewUser(String userId, String name, String phoneNumber, String address, String country,String email,ArrayList<String> favorisProducts,Boolean isAdmin) {
         // Create a User object
-        User user = new User(country, password, name, phoneNumber, address);
+        User user = new User(country, password, name, phoneNumber, address,email,favorisProducts,isAdmin);
         // Write a User object to the Firebase Realtime Database
         mDatabase.child("users").child(userId).setValue(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -166,4 +168,7 @@ public class signup extends AppCompatActivity {
                     }
                 });
     }
+
+
+
 }

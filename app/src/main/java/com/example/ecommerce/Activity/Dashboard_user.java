@@ -38,6 +38,12 @@ public class Dashboard_user extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         sharedPreferencesManager = new SharedPreferencesManager(this);
+        binding.relCartInProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         binding.layoutLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +70,7 @@ public class Dashboard_user extends AppCompatActivity {
     private void updateUiUser() {
         String userId = sharedPreferencesManager.getUserId();
         updateName(userId);
+        updateCountry(userId);
 
     }
     private void updateName(String userId){

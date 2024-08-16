@@ -1,0 +1,36 @@
+<!-- res/layout/dialog_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/background_message_admin"
+    android:id="@+id/layout_editpermession">
+
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: example@example.com"
+        android:textSize="16sp"
+        android:paddingBottom="16dp"/>
+
+    <CheckBox
+        android:id="@+id/productsCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Products" />
+
+    <CheckBox
+        android:id="@+id/ordersCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Orders" />
+
+    <CheckBox
+        android:id="@+id/categoriesManageCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categories &amp; Manage" />
+
+</LinearLayout>

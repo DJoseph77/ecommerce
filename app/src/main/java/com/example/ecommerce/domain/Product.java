@@ -1,9 +1,21 @@
 package com.example.ecommerce.domain;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+
+import com.example.ecommerce.Helper.SharedPreferencesManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Product implements Serializable {
+    private String id;
     private String title;
     private String picUrl;
     private int review;
@@ -12,7 +24,10 @@ public class Product implements Serializable {
     private String description;
     private Boolean isPopular;
     private ArrayList<String> categories;
+    private ArrayList<String> idUserRated;
+
     public Product(){
+        this.idUserRated=new ArrayList<>();
     }
     public Product(String title, String picUrl, int review, double score,
                    double price, String description, Boolean isPopular) {
@@ -23,6 +38,7 @@ public class Product implements Serializable {
         this.price = price;
         this.description = description;
         this.isPopular = isPopular;
+        this.idUserRated=new ArrayList<>();
     }
 
     public Product(String title, String photoUrl, Double price, String description, ArrayList<String> category, Boolean isPopular) {
@@ -32,6 +48,16 @@ public class Product implements Serializable {
         this.description = description;
         this.categories = category;
         this.isPopular = isPopular;
+        this.idUserRated=new ArrayList<>();
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -97,4 +123,13 @@ public class Product implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public ArrayList<String> getIdUserRated() {
+        return idUserRated;
+    }
+
+    public void setIdUserRated(ArrayList<String> idUserRated) {
+        this.idUserRated = idUserRated;
+    }
+
 }

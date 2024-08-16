@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Speen"
+    android:background="@drawable/bakgroundluck">
+
+    <com.example.ecommerce.Helper.CustomWheelView
+        android:id="@+id/wheel_view"
+        android:layout_width="355dp"
+        android:layout_height="343dp"
+        android:layout_centerInParent="true"
+        android:elevation="60dp"/>
+
+    <Button
+        android:id="@+id/spin_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wheel_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Spin"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/textLucky"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="How lucky are you ?!"
+        android:textStyle="italic"
+        android:textColor="#945DF8"
+        android:textSize="36sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"/>
+    <ImageView
+        android:layout_width="86dp"
+        android:layout_height="95dp"
+        android:src="@drawable/target"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textLucky"
+        android:layout_marginTop="150dp"
+        android:elevation="80dp"/>
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spin time"
+        android:textColor="#ffbf00"
+        android:textStyle="italic"
+        android:textSize="24sp"
+        android:layout_below="@id/spin_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"/>
+
+
+</RelativeLayout>

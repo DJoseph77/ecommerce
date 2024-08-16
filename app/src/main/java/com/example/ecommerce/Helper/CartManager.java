@@ -74,5 +74,8 @@ public class CartManager {
         String json = gson.toJson(cartItems);
         sharedPreferences.edit().putString(CART_KEY, json).apply();
     }
+    public void clearCart() {
+        sharedPreferences.edit().remove(CART_KEY).apply();
+    }
 
 }

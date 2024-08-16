@@ -1,5 +1,7 @@
 package com.example.ecommerce.domain;
 
+import android.content.Context;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

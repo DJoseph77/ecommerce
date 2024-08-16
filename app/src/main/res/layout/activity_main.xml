@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
@@ -40,6 +41,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Welcome"
+                            android:textSize="16sp"
                             android:textColor="@color/white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +50,8 @@
                             android:id="@+id/textView4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Youssef Athimni"
+                            android:text="User"
+                            android:textSize="16sp"
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="@+id/textView"
@@ -89,7 +92,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <EditText
-                        android:id="@+id/editTextText2"
+                        android:id="@+id/editTextCherche"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="24dp"
@@ -106,7 +109,19 @@
                         android:textColor="#9aa2aa"
                         android:textSize="16dp" />
                 </LinearLayout>
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleMainRecherche"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:visibility="gone"/>
+            <LinearLayout
+                android:id="@+id/anythingElse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
@@ -126,33 +141,10 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0"
-                        android:src="@drawable/top_banner" />
+                        android:src="@drawable/speenwheel" />
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="Discount 20% for \nHeadPhone!"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                        app:layout_constraintStart_toStartOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button"
-                        style="@android:style/Widget.Button"
-                        android:layout_width="80dp"
-                        android:layout_height="48dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/purple_background"
-                        android:text="Buy now"
-                        android:textColor="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -171,7 +163,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
                     android:layout_marginEnd="12dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/category1"
@@ -291,6 +284,43 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/categoriesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:layout_marginEnd="5dp">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/categoriesRecycler"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"/>
+                    <LinearLayout
+                        android:id="@+id/acategoryAll"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/aimageView35"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.8"
+                            android:src="@drawable/cat5" />
+
+                        <TextView
+                            android:id="@+id/atextView75"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.2"
+                            android:layout_marginTop="8dp"
+                            android:text="View All"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="24dp"
@@ -323,10 +353,11 @@
                     android:clipToPadding="false"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:layout_marginBottom="180dp"/>
+                    android:layout_marginBottom="180dp"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
-
+        </LinearLayout>
         </ScrollView>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -345,7 +376,8 @@
                 android:padding="4dp"
                 app:fabCradleMargin="8dp"
                 app:fabCradleRoundedCornerRadius="50dp"
-                app:fabCradleVerticalOffset="6dp">
+                app:fabCradleVerticalOffset="6dp"
+                app:hideOnScroll="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -374,6 +406,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/wichList"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -465,7 +498,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.bottomappbar.BottomAppBar>
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
