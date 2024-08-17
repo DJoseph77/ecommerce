@@ -31,7 +31,7 @@ public class signup extends AppCompatActivity {
     ActivitySignupBinding binding;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    String country, name, password, phoneNumber, address, email;
+    String country, name, password, phoneNumber, address, email,lastName,confirmPassword;
     ArrayList<String> countries;
     ArrayList<String> favorisProducts;
 
@@ -71,24 +71,60 @@ public class signup extends AppCompatActivity {
             }
         });
 
-        binding.registerBtn.setOnClickListener(new View.OnClickListener() {
+        binding.continueBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = binding.editTextName.getText().toString();
-                password = binding.editTextPassword.getText().toString();
-                phoneNumber = binding.editTextPhoneNumber.getText().toString();
-                address = binding.editTextAdress.getText().toString();
-                email = binding.editTextEmail.getText().toString();
-                favorisProducts=new ArrayList<>();
-
-                if (validateFields(name, email, password, phoneNumber, address, country)) {
-                    createAccount(name, email, password, phoneNumber, country, address,favorisProducts);
+                lastName=binding.editTextLastName.getText().toString();
+                if (!name.isEmpty() || !lastName.isEmpty()){
+                    binding.linearLayout1.setVisibility(View.GONE);
+                    binding.linearLayout2.setVisibility(View.VISIBLE);
                 }else {
-                    binding.textError.setVisibility(View.VISIBLE);
-                    binding.textError.setText("Please fill all fields!");
+                    Toast.makeText(signup.this, "Enter your name", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        binding.continueBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phoneNumber = binding.editTextPhoneNumber.getText().toString();
+                email = binding.editTextEmail.getText().toString();
+                if (!email.isEmpty() || password.length()>8){
+                    binding.linearLayout2.setVisibility(View.GONE);
+                    binding.linearLayout3.setVisibility(View.VISIBLE);
+                }else {
+                    Toast.makeText(signup.this, "Enter your Email and password", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        binding.continueBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                address = binding.editTextAdress.getText().toString();
+                if (!address.isEmpty() || !country.isEmpty()){
+                    binding.linearLayout3.setVisibility(View.GONE);
+                    binding.linearLayout4.setVisibility(View.VISIBLE);
+                }else {
+                    Toast.makeText(signup.this, "Enter the country and adress", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        binding.registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                password = binding.editTextPassword.getText().toString();
+                confirmPassword=binding.editTextPassword2.getText().toString();
+                favorisProducts=new ArrayList<>();
+                if (password.equals(confirmPassword)){
+                    if (validateFields(name, email, password, phoneNumber, address, country,lastName)) {
+                        createAccount(name,lastName, email, password, phoneNumber, country, address,favorisProducts);
+                    }
+                }
+            }
+        });
+
+
     }
 
     private void setUpSpinner() {
@@ -122,14 +158,14 @@ public class signup extends AppCompatActivity {
         binding.countrySpinner.setAdapter(adapter);
     }
 
-    private boolean validateFields(String name, String email, String password, String phoneNumber, String address, String country) {
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty() || address.isEmpty() || country.isEmpty()) {
+    private boolean validateFields(String name, String email, String password, String phoneNumber, String address, String country,String lastName) {
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty() || address.isEmpty() || country.isEmpty() || lastName.isEmpty()) {
             return false;
         }
         return true;
     }
 
-    private void createAccount(String name, String email, String password, String phoneNumber, String country, String address,ArrayList<String> favorisProducts) {
+    private void createAccount(String name,String lastName, String email, String password, String phoneNumber, String country, String address,ArrayList<String> favorisProducts) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -140,21 +176,20 @@ public class signup extends AppCompatActivity {
                         // Get user ID
                         String userId = user.getUid();
                         // Write user data to the database
-                        writeNewUser(userId, name, phoneNumber, address, country,email,favorisProducts,false);
+                        writeNewUser(userId, name,lastName, phoneNumber, address, country,email,favorisProducts,false);
                         Intent intent3 = new Intent(signup.this, Login.class);
                         startActivity(intent3);
                     }
                 } else {
-                    binding.textError.setVisibility(View.VISIBLE);
-                    binding.textError.setText("Email used");
+                    Toast.makeText(signup.this, "email Used", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void writeNewUser(String userId, String name, String phoneNumber, String address, String country,String email,ArrayList<String> favorisProducts,Boolean isAdmin) {
+    private void writeNewUser(String userId, String name,String lastName, String phoneNumber, String address, String country,String email,ArrayList<String> favorisProducts,Boolean isAdmin) {
         // Create a User object
-        User user = new User(country, password, name, phoneNumber, address,email,favorisProducts,isAdmin);
+        User user = new User(country, password, name,lastName, phoneNumber, address,email,favorisProducts,isAdmin);
         // Write a User object to the Firebase Realtime Database
         mDatabase.child("users").child(userId).setValue(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

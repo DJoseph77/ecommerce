@@ -1,5 +1,7 @@
 package com.example.ecommerce.Activity;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -82,6 +84,80 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+        binding.profileLogoMain.setOnClickListener(v -> {
+            ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                    v, // View that we are animating from
+                    (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                    (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                    v.getWidth(), // Final width of the animation
+                    v.getHeight() // Final height of the animation
+            );
+            if (sharedPreferencesManager.isLoggedIn()) {
+                Intent intent = sharedPreferencesManager.getIsAdmin() ?
+                        new Intent(CartActivity.this, DashBoardActivity.class) :
+                        new Intent(CartActivity.this, Dashboard_user.class);
+                startActivity(intent,options.toBundle());
+            } else {
+                startActivity(new Intent(CartActivity.this, Login.class),options.toBundle());
+            }
+        });
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
+                if (sharedPreferencesManager.isLoggedIn()) {
+                    if (sharedPreferencesManager.getIsAdmin()){
+                        Intent intent0=new Intent(CartActivity.this, AdminChat.class);
+                        startActivity(intent0,options.toBundle());
+                    }else{
+                        Intent intentMessage=new Intent(CartActivity.this, channel.class);
+                        intentMessage.putExtra("id",sharedPreferencesManager.getUserId());
+                        startActivity(intentMessage);
+                    }
+                }else {
+                    startActivity(new Intent(CartActivity.this, Login.class),options.toBundle());
+                }
+            }
+        });
+
+        binding.wichList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
+                if (sharedPreferencesManager.isLoggedIn()) {
+                    navigateToCategory("favorites");
+                } else {
+                    startActivity(new Intent(CartActivity.this, Login.class),options.toBundle());
+                }
+            }
+        });
+        binding.home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
+                Intent intentHome=new Intent(CartActivity.this,MainActivity.class);
+                startActivity(intentHome,options.toBundle());
+            }
+        });
+
 
     }
 
@@ -141,6 +217,12 @@ public class CartActivity extends AppCompatActivity {
 
 
     }
+    private void navigateToCategory(String category) {
+        Intent intent = new Intent(CartActivity.this, Categories.class);
+        intent.putExtra("categoryType", category);
+        startActivity(intent);
+    }
+
     private void placeOrder() {
         SharedPreferencesManager sharedPreferences = new SharedPreferencesManager(this);
         CartManager cartManager = new CartManager(this);

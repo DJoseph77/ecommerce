@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
+    tools:context=".Activity.MainActivity"
+    android:background="#ffffff">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -377,32 +378,37 @@
                 app:fabCradleMargin="8dp"
                 app:fabCradleRoundedCornerRadius="50dp"
                 app:fabCradleVerticalOffset="6dp"
-                app:hideOnScroll="true">
+                app:hideOnScroll="true"
+                android:gravity="bottom">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:gravity="bottom"
+                        android:layout_gravity="bottom">
 
                         <ImageView
                             android:id="@+id/imageView51"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/btn_1" />
+                            android:src="@drawable/ic_home_btn" />
 
-                        <TextView
+                        <ImageView
                             android:id="@+id/textView121"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
                             android:layout_marginTop="4dp"
-                            android:text="Explorer"
-                            android:textAlignment="center" />
+                            android:src="@drawable/point"
+                            android:layout_gravity="center"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -414,41 +420,30 @@
 
                         <ImageView
                             android:id="@+id/imageView52"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/btn_2"/>
+                            android:src="@drawable/ic_favorite_btn"/>
 
-                        <TextView
-                            android:id="@+id/textView122"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Wishlist"
-                            android:textAlignment="center" />
+
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/floatingActionButton"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
                         android:orientation="vertical"
-                        android:visibility="invisible">
+                        android:visibility="visible">
 
                         <ImageView
-                            android:id="@+id/imageView53"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:id="@+id/img55"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/btn_3" />
+                            android:src="@drawable/ic_contactus_btn" />
 
-                        <TextView
-                            android:id="@+id/textView123"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Explorer"
-                            android:textAlignment="center" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -460,18 +455,12 @@
 
                         <ImageView
                             android:id="@+id/imageView54"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/btn_3" />
+                            android:src="@drawable/ic_shop_btn" />
 
-                        <TextView
-                            android:id="@+id/textView124"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Cart"
-                            android:textAlignment="center" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -483,31 +472,14 @@
 
                         <ImageView
                             android:id="@+id/imageView55"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/btn_4" />
+                            android:src="@drawable/ic_profile_btn" />
 
-                        <TextView
-                            android:id="@+id/textView125"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Profile"
-                            android:textAlignment="center" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.bottomappbar.BottomAppBar>
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/contact_us_foreground"
-                app:backgroundTint="@color/purple_Dark"
-                app:layout_anchor="@+id/appBar"
-                app:layout_anchorGravity="top|center"
-                app:maxImageSize="50dp"
-                app:tint="@color/white" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

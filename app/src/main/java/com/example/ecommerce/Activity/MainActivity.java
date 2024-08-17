@@ -1,5 +1,6 @@
 package com.example.ecommerce.Activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        binding.textView121.setVisibility(View.VISIBLE);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("products");
         sharedPreferencesManager = new SharedPreferencesManager(this);
@@ -83,13 +85,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (sharedPreferencesManager.isLoggedIn()) {
+                    ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                            v, // View that we are animating from
+                            (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                            (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                            v.getWidth(), // Final width of the animation
+                            v.getHeight() // Final height of the animation
+                    );
                     if (sharedPreferencesManager.getIsAdmin()){
                         Intent intent0=new Intent(MainActivity.this, AdminChat.class);
-                        startActivity(intent0);
+                        startActivity(intent0,options.toBundle());
                     }else{
                         Intent intentMessage=new Intent(MainActivity.this, channel.class);
                         intentMessage.putExtra("id",sharedPreferencesManager.getUserId());
-                        startActivity(intentMessage);
+                        startActivity(intentMessage,options.toBundle());
                     }
                 }else {
                     startActivity(new Intent(MainActivity.this, Login.class));
@@ -122,23 +131,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.profileLogoMain.setOnClickListener(v -> {
+            ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                    v, // View that we are animating from
+                    (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                    (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                    v.getWidth(), // Final width of the animation
+                    v.getHeight() // Final height of the animation
+            );
             if (sharedPreferencesManager.isLoggedIn()) {
                 Intent intent = sharedPreferencesManager.getIsAdmin() ?
                         new Intent(MainActivity.this, DashBoardActivity.class) :
                         new Intent(MainActivity.this, Dashboard_user.class);
-                startActivity(intent);
+                startActivity(intent,options.toBundle());
             } else {
-                startActivity(new Intent(MainActivity.this, Login.class));
+                startActivity(new Intent(MainActivity.this, Login.class),options.toBundle());
             }
         });
 
         binding.cartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
                 if (sharedPreferencesManager.isLoggedIn()){
-                    startActivity(new Intent(MainActivity.this, CartActivity.class));
+                    startActivity(new Intent(MainActivity.this, CartActivity.class),options.toBundle());
                 }else {
-                    startActivity(new Intent(MainActivity.this, Login.class));
+                    startActivity(new Intent(MainActivity.this, Login.class),options.toBundle());
                 }
             }
         });
@@ -160,10 +183,17 @@ public class MainActivity extends AppCompatActivity {
         binding.wichList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
                 if (sharedPreferencesManager.isLoggedIn()) {
                     navigateToCategory("favorites");
                 } else {
-                    startActivity(new Intent(MainActivity.this, Login.class));
+                    startActivity(new Intent(MainActivity.this, Login.class),options.toBundle());
                 }
             }
         });

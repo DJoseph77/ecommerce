@@ -1,7 +1,10 @@
 package com.example.ecommerce.Activity;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -48,6 +51,7 @@ public class AdminChat extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        sharedPreferencesManager=new SharedPreferencesManager(AdminChat.this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userChatsId = new ArrayList<>();
@@ -57,6 +61,7 @@ public class AdminChat extends AppCompatActivity {
         binding.usersChat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapter = new MessageAdminAdapater(messageAdmins, this);
         binding.usersChat.setAdapter(adapter);
+        bottomBarAction();
 
         chercheUsersWithMessages();
     }
@@ -160,4 +165,80 @@ public class AdminChat extends AppCompatActivity {
             }
         }
     }
+    private void bottomBarAction(){
+
+        binding.profileLogoMain.setOnClickListener(v -> {
+            ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                    v, // View that we are animating from
+                    (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                    (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                    v.getWidth(), // Final width of the animation
+                    v.getHeight() // Final height of the animation
+            );
+            if (sharedPreferencesManager.isLoggedIn()) {
+                Intent intent = sharedPreferencesManager.getIsAdmin() ?
+                        new Intent(AdminChat.this, DashBoardActivity.class) :
+                        new Intent(AdminChat.this, Dashboard_user.class);
+                startActivity(intent,options.toBundle());
+            } else {
+                startActivity(new Intent(AdminChat.this, Login.class),options.toBundle());
+            }
+        });
+        binding.cartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
+                if (sharedPreferencesManager.isLoggedIn()){
+                    startActivity(new Intent(AdminChat.this, CartActivity.class),options.toBundle());
+                }else {
+                    startActivity(new Intent(AdminChat.this, Login.class),options.toBundle());
+                }
+            }
+        });
+        binding.wichList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
+                if (sharedPreferencesManager.isLoggedIn()) {
+                    navigateToCategory("favorites",options);
+                } else {
+                    startActivity(new Intent(AdminChat.this, Login.class),options.toBundle());
+                }
+            }
+        });
+        binding.home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityOptions options = ActivityOptions.makeScaleUpAnimation(
+                        v, // View that we are animating from
+                        (int) v.getWidth() / 2, // X coordinate to start scaling from (button center)
+                        (int) v.getHeight() / 2, // Y coordinate to start scaling from (button center)
+                        v.getWidth(), // Final width of the animation
+                        v.getHeight() // Final height of the animation
+                );
+                Intent intentHome=new Intent(AdminChat.this,MainActivity.class);
+                startActivity(intentHome,options.toBundle());
+            }
+        });
+
+    }
+    private void navigateToCategory(String category,ActivityOptions options) {
+
+        Intent intent = new Intent(AdminChat.this, Categories.class);
+        intent.putExtra("categoryType", category);
+        startActivity(intent,options.toBundle());
+    }
+
 }

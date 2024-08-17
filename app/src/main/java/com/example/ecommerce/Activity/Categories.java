@@ -53,6 +53,13 @@ public class Categories extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         category = getIntent().getStringExtra("categoryType");
+        if (category.equals("favorites")){
+            binding.textView129.setVisibility(View.INVISIBLE);
+            binding.textView121.setVisibility(View.VISIBLE);
+        }else {
+            binding.textView121.setVisibility(View.INVISIBLE);
+            binding.textView129.setVisibility(View.VISIBLE);
+        }
 
         fetchAllItemsFromFirebase();
     }
@@ -82,8 +89,24 @@ public class Categories extends AppCompatActivity {
         binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(Categories.this, CartActivity.class)));
 
         binding.backBtn.setOnClickListener(v -> {
-            startActivity(new Intent(Categories.this, MainActivity.class));
             finish();
+        });
+        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sharedPreferencesManager.isLoggedIn()) {
+                    if (sharedPreferencesManager.getIsAdmin()){
+                        Intent intent0=new Intent(Categories.this, AdminChat.class);
+                        startActivity(intent0);
+                    }else{
+                        Intent intentMessage=new Intent(Categories.this, channel.class);
+                        intentMessage.putExtra("id",sharedPreferencesManager.getUserId());
+                        startActivity(intentMessage);
+                    }
+                }else {
+                    startActivity(new Intent(Categories.this, Login.class));
+                }
+            }
         });
 
         binding.editTextCherche.addTextChangedListener(new TextWatcher() {
@@ -100,6 +123,13 @@ public class Categories extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 // No action needed after text is changed
+            }
+        });
+        binding.home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Categories.this,MainActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -6,6 +6,7 @@ public class User {
     private String email;
     private String password;
     private String name;
+    private String LastName;
     private String phoneNumber;
     private String country;
     private String adress;
@@ -20,7 +21,7 @@ public class User {
         this.email=email;
         this.favorisProducts=favorisProducts;
     }
-    public User(String country, String password, String name, String phoneNumber,String adress,String email,ArrayList<String> favorisProducts,Boolean isAdmin) {
+    public User(String country, String password, String name,String lastName, String phoneNumber,String adress,String email,ArrayList<String> favorisProducts,Boolean isAdmin) {
         this.adress=adress;
         this.country = country;
         this.password = password;
@@ -29,6 +30,7 @@ public class User {
         this.email=email;
         this.favorisProducts=favorisProducts;
         this.isAdmin=isAdmin;
+        this.LastName=lastName;
     }
 
     public User() {
@@ -99,4 +101,11 @@ public class User {
         isAdmin = admin;
     }
 
+    public String getLastName() {
+        return LastName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
 }
